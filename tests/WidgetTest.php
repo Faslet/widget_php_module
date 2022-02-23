@@ -31,23 +31,38 @@ final class WidgetTest extends TestCase
     {
         $testShopId = 'test shop id';
         $widget = new \Faslet\Widget($testShopId);
-        $widgetSnippet = $widget
+
+        $widget
             ->withBrand('test brand')
             ->withProductName('test product name')
             ->withFasletProductTag('Faslet_Test_Male')
             ->withImage('https://placekitten.com/4')
             ->withProductId("product id")
             ->withLocale("en")
+            ->withUrl("https://shop.com/");
+
+        $widget
+            ->addColor("red", "Magnificent Red")
+            ->addColor("blue", "Dashing Blue");
+
+
+        $widget
+            ->addVariant("var_1", "S", true, "sku_1", "red")
+            ->addVariant("var_1", "S", true, "sku_1", "blue")
+            ->addVariant("var_1", "M", false, "sku_1", "red")
+            ->addVariant("var_1", "M", true, "sku_1", "blue");
+
+        $widgetSnippet = $widget
             ->buildWidget();
 
         $this->assertXmlStringEqualsXmlString(
             "<div class=\"faslet-container\">
 <script>
     window._faslet = window._faslet || {};
-    window._faslet.id = \"product id\",
-    window._faslet.variants = ;
-    window._faslet.shopUrl = \"\";
-    window._faslet.colors = ;
+    window._faslet.id = \"product id\";
+    window._faslet.variants = [{\"size\":\"S\",\"id\":\"var_1\",\"sku\":\"sku_1\",\"available\":true,\"color\":\"red\"},{\"size\":\"S\",\"id\":\"var_1\",\"sku\":\"sku_1\",\"available\":true,\"color\":\"blue\"},{\"size\":\"M\",\"id\":\"var_1\",\"sku\":\"sku_1\",\"available\":false,\"color\":\"red\"},{\"size\":\"M\",\"id\":\"var_1\",\"sku\":\"sku_1\",\"available\":true,\"color\":\"blue\"}];
+    window._faslet.colors = [{\"id\":\"red\",\"name\":\"Magnificent Red\"},{\"id\":\"blue\",\"name\":\"Dashing Blue\"}];
+    window._faslet.shopUrl = \"https://shop.com/\";
 </script>
 <faslet-app
     shop-id=\"$testShopId\"

@@ -16,6 +16,9 @@ final class Widget
   private $productIdentifier;
   private $productTag;
   private $locale;
+  private $shopPageUrl;
+  private $colors = array();
+  private $variants;
 
   public function __construct(string $shopId)
   {
@@ -87,6 +90,24 @@ final class Widget
     return $this;
   }
 
+  public function withUrl(string $shopPageUrl)
+  {
+    $this->shopPageUrl = $shopPageUrl;
+    return $this;
+  }
+
+  public function addColor(string $id, string $name)
+  {
+    $this->colors[] = array("id" => $id, "name" => $name);
+    return $this;
+  }
+
+  public function addVariant(string $variantId, string $sizeLabel, bool $inStock, string $sku, string $colorId)
+  {
+    $this->variants[] = array("size" => $sizeLabel, "id" => $variantId, "sku" => $sku, "available" => $inStock, "color" => $colorId);
+    return $this;
+  }
+
   public function buildScriptTag(): string
   {
     $doc = new DOMDocument();
@@ -100,22 +121,24 @@ final class Widget
 
   public function buildWidget(): string
   {
-    $variants = "";
-    $colors = "";
-    $shopPageUrl = "";
-
     $doc = new DOMDocument();
 
     $container = $doc->createElement('div');
     $container->setAttribute("class", "faslet-container");
 
     $metaInfoScript = $doc->createElement("script");
-    $metaInfoScript->textContent = "
-    window._faslet = window._faslet || {};
-    window._faslet.id = \"$this->productIdentifier\",
-    window._faslet.variants = $variants;
-    window._faslet.shopUrl = \"$shopPageUrl\";
-    window._faslet.colors = $colors;\n";
+    $metaInfoScript->textContent = "\n    window._faslet = window._faslet || {};\n";
+    $metaInfoScript->textContent .=  "    window._faslet.id = \"$this->productIdentifier\";\n";
+
+    $flatVariants = json_encode($this->variants);
+    $metaInfoScript->textContent .=  "    window._faslet.variants = $flatVariants;\n";
+
+    $flatColors = json_encode($this->colors);
+    $metaInfoScript->textContent .=  "    window._faslet.colors = $flatColors;\n";
+
+    if (isset($this->shopPageUrl)) {
+      $metaInfoScript->textContent .=  "    window._faslet.shopUrl = \"$this->shopPageUrl\";\n";
+    }
 
     $container->appendChild($metaInfoScript);
 

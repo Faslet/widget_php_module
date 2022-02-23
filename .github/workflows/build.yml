@@ -18,5 +18,5 @@ jobs:
           php-version: '7.4'
       - name: Run Composer Install
         run: composer install --no-interaction
-      - name: run tests
+      - name: Run Tests
         run: vendor/bin/phpunit --testdox tests
