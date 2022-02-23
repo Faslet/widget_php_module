@@ -1,0 +1,22 @@
+name: Faslet Composer Module
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  release:
+    types: [published]
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: nanasess/setup-php@master
+        with:
+          php-version: '7.4'
+      - name: Run Composer Install
+        run: composer install --no-interaction
+      - name: run tests
+        run: vendor/bin/phpunit --testdox tests
