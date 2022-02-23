@@ -18,7 +18,8 @@ final class Widget
   private $locale;
   private $shopPageUrl;
   private $colors = array();
-  private $variants;
+  private $variants = array();
+  private $addToCartSnippet;
 
   public function __construct(string $shopId)
   {
@@ -96,6 +97,20 @@ final class Widget
     return $this;
   }
 
+  public function withAddToCartSnippet(string $addToCartSnippet)
+  {
+    $this->addToCartSnippet = $addToCartSnippet;
+    return $this;
+  }
+
+  public function withAddToCartRedirect(string $urlWithVariantId, string $toReplace = "{VARIANT_ID}")
+  {
+    $this->addToCartSnippet = "function(id) { 
+      window.location.assign(\"$urlWithVariantId\".replace(\"$toReplace\", id));
+      return Promise.resolve();
+    }";
+  }
+
   public function addColor(string $id, string $name)
   {
     $this->colors[] = array("id" => $id, "name" => $name);
@@ -138,6 +153,10 @@ final class Widget
 
     if (isset($this->shopPageUrl)) {
       $metaInfoScript->textContent .=  "    window._faslet.shopUrl = \"$this->shopPageUrl\";\n";
+    }
+
+    if (isset($this->addToCartSnippet)) {
+      $metaInfoScript->textContent .=  "    window._faslet.addToCart = $this->addToCartSnippet;\n";
     }
 
     $container->appendChild($metaInfoScript);

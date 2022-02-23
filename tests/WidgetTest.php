@@ -27,7 +27,7 @@ final class WidgetTest extends TestCase
         );
     }
 
-    public function testResturnsAValidaWidgetTag(): void
+    public function testReturnsAValidWidgetTag(): void
     {
         $testShopId = 'test shop id';
         $widget = new \Faslet\Widget($testShopId);
@@ -48,9 +48,9 @@ final class WidgetTest extends TestCase
 
         $widget
             ->addVariant("var_1", "S", true, "sku_1", "red")
-            ->addVariant("var_1", "S", true, "sku_1", "blue")
-            ->addVariant("var_1", "M", false, "sku_1", "red")
-            ->addVariant("var_1", "M", true, "sku_1", "blue");
+            ->addVariant("var_2", "S", true, "sku_2", "blue")
+            ->addVariant("var_3", "M", false, "sku_3", "red")
+            ->addVariant("var_4", "M", true, "sku_4", "blue");
 
         $widgetSnippet = $widget
             ->buildWidget();
@@ -60,7 +60,7 @@ final class WidgetTest extends TestCase
 <script>
     window._faslet = window._faslet || {};
     window._faslet.id = \"product id\";
-    window._faslet.variants = [{\"size\":\"S\",\"id\":\"var_1\",\"sku\":\"sku_1\",\"available\":true,\"color\":\"red\"},{\"size\":\"S\",\"id\":\"var_1\",\"sku\":\"sku_1\",\"available\":true,\"color\":\"blue\"},{\"size\":\"M\",\"id\":\"var_1\",\"sku\":\"sku_1\",\"available\":false,\"color\":\"red\"},{\"size\":\"M\",\"id\":\"var_1\",\"sku\":\"sku_1\",\"available\":true,\"color\":\"blue\"}];
+    window._faslet.variants = [{\"size\":\"S\",\"id\":\"var_1\",\"sku\":\"sku_1\",\"available\":true,\"color\":\"red\"},{\"size\":\"S\",\"id\":\"var_2\",\"sku\":\"sku_2\",\"available\":true,\"color\":\"blue\"},{\"size\":\"M\",\"id\":\"var_3\",\"sku\":\"sku_3\",\"available\":false,\"color\":\"red\"},{\"size\":\"M\",\"id\":\"var_4\",\"sku\":\"sku_4\",\"available\":true,\"color\":\"blue\"}];
     window._faslet.colors = [{\"id\":\"red\",\"name\":\"Magnificent Red\"},{\"id\":\"blue\",\"name\":\"Dashing Blue\"}];
     window._faslet.shopUrl = \"https://shop.com/\";
 </script>
