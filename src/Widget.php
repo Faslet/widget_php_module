@@ -165,6 +165,7 @@ final class Widget
 
     $container = $doc->createElement('div');
     $container->setAttribute("class", "faslet-container");
+    $container->setAttribute("id", "faslet-container");
 
     $metaInfoScript = $doc->createElement("script");
     $metaInfoScript->textContent = "\n    window._faslet = window._faslet || {};\n";

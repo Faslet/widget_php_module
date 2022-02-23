@@ -57,7 +57,7 @@ final class WidgetTest extends TestCase
             ->buildWidget();
 
         $this->assertXmlStringEqualsXmlString(
-            "<div class=\"faslet-container\">
+            "<div id=\"faslet-container\" class=\"faslet-container\">
 <script>
     window._faslet = window._faslet || {};
     window._faslet.id = \"product id\";
