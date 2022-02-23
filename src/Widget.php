@@ -67,7 +67,7 @@ final class Widget
     return $this;
   }
 
-  public function withImage(string $productImageUrl)
+  public function withProductImage(string $productImageUrl)
   {
     $this->productImageUrl = $productImageUrl;
     return $this;
@@ -123,7 +123,7 @@ final class Widget
     return $this;
   }
 
-  public function buildScriptTag(): string
+  public static function buildScriptTag(): string
   {
     $doc = new DOMDocument();
 
@@ -137,6 +137,31 @@ final class Widget
   public function buildWidget(): string
   {
     $doc = new DOMDocument();
+
+    if (!isset($this->shopId) || $this->shopId == "") {
+      throw new \Faslet\MissingParameterException("Shop ID is missing, please construct your Widget instance with your Faslet Shop ID which you can obtain from Faslet");
+    }
+
+    if (!isset($this->productBrand) || $this->productBrand == "") {
+      throw new \Faslet\MissingParameterException("Brand is missing, please call withBrand on your Widget instance");
+    }
+
+    if (!isset($this->productIdentifier) || $this->productIdentifier == "") {
+      throw new \Faslet\MissingParameterException("Product Identifier is missing, please call withProductId on your Widget instance");
+    }
+
+    if (!isset($this->productName) || $this->productName == "") {
+      throw new \Faslet\MissingParameterException("Product Name is missing, please call withProductName on your Widget instance");
+    }
+
+    if (!isset($this->productImageUrl) || $this->productImageUrl == "") {
+      throw new \Faslet\MissingParameterException("Product Image Url is missing, please call withProductImage on your Widget instance");
+    }
+
+    if (count($this->variants) === 0) {
+      throw new \Faslet\MissingParameterException("Variants are empty, please call addVariant on your Widget instance");
+    }
+
 
     $container = $doc->createElement('div');
     $container->setAttribute("class", "faslet-container");

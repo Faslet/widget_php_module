@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Faslet\Tests;
 
+use Faslet\MissingParameterException;
 use PHPUnit\Framework\TestCase;
 
 final class WidgetTest extends TestCase
@@ -36,7 +37,7 @@ final class WidgetTest extends TestCase
             ->withBrand('test brand')
             ->withProductName('test product name')
             ->withFasletProductTag('Faslet_Test_Male')
-            ->withImage('https://placekitten.com/4')
+            ->withProductImage('https://placekitten.com/4')
             ->withProductId("product id")
             ->withLocale("en")
             ->withUrl("https://shop.com/");
@@ -76,5 +77,56 @@ final class WidgetTest extends TestCase
 </div>",
             $widgetSnippet
         );
+    }
+
+    public function testThrowsErrorWhenBrandIsMissing(): void
+    {
+        $widget = new \Faslet\Widget('test shop id');
+
+        $widget
+            ->withProductName('test product name')
+            ->withFasletProductTag('Faslet_Test_Male')
+            ->withProductImage('https://placekitten.com/4')
+            ->withProductId("product id")
+            ->withLocale("en")
+            ->withUrl("https://shop.com/");
+
+        $this->expectException(MissingParameterException::class);
+        $widget->buildWidget();
+    }
+
+    public function testThrowsErrorWhenShopIdIsMissing(): void
+    {
+        $widget = new \Faslet\Widget("");
+
+        $widget
+            ->withBrand('test brand')
+            ->withProductName('test product name')
+            ->withFasletProductTag('Faslet_Test_Male')
+            ->withProductImage('https://placekitten.com/4')
+            ->withProductId("product id")
+            ->withLocale("en")
+            ->withUrl("https://shop.com/");
+
+        $this->expectException(MissingParameterException::class);
+        $widget->buildWidget();
+    }
+
+
+    public function testThrowsErrorWhenVariantsAreMissing(): void
+    {
+        $widget = new \Faslet\Widget('test shop id');
+
+        $widget
+            ->withBrand('test brand')
+            ->withProductName('test product name')
+            ->withFasletProductTag('Faslet_Test_Male')
+            ->withProductImage('https://placekitten.com/4')
+            ->withProductId("product id")
+            ->withLocale("en")
+            ->withUrl("https://shop.com/");
+
+        $this->expectException(MissingParameterException::class);
+        $widget->buildWidget();
     }
 }

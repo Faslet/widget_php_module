@@ -9,7 +9,7 @@ $widget = new Widget("Faslet Demo");
 $widget
   ->withBrand("Faslet Demo")
   ->withProductId("id123")
-  ->withImage("https://placekitten.com/100")
+  ->withProductImage("https://placekitten.com/100")
   ->withProductName("Jacket")
   ->withFasletProductTag("Faslet_Jacket_Male");
 
@@ -34,7 +34,7 @@ $widget->withAddToCartRedirect("https://example.com/add-to-cart?variantId=%id%",
 
 <head>
   <?php
-  echo $widget->buildScriptTag()
+  echo Widget::buildScriptTag()
   ?>
 </head>
 
