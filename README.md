@@ -3,7 +3,63 @@
 ### Usage
 To use this project in your own, pull down this plugin with 
 ```bash
-compooser install faslet/faslet
+compooser require faslet/faslet
+```
+
+#### Widget (Product page)
+
+Example usage with shop id `Faslet Demo`
+```php
+use Faslet\Widget;
+
+$widget = new Widget("Faslet Demo");
+
+$widget
+    ->withBrand("Faslet Demo")
+    ->withProductId("id123")
+    ->withProductImage("https://placekitten.com/100")
+    ->withProductName("Jacket")
+    ->withFasletProductTag("Faslet_Jacket_Male");
+
+$widget
+    ->addColor("red", "Magnificent Red")
+    ->addColor("blue", "Dashing Blue");
+
+
+$widget
+    ->addVariant("var_1", "S", true, "sku_1", "red")
+    ->addVariant("var_2", "S", true, "sku_2", "blue")
+    ->addVariant("var_3", "M", true, "sku_3", "red")
+    ->addVariant("var_4", "M", false, "sku_4", "blue")
+    ->addVariant("var_5", "L", false, "sku_5", "red")
+    ->addVariant("var_6", "L", false, "sku_6", "blue");
+
+$widget->withAddToCartRedirect("https://example.com/add-to-cart?variantId=%id%", "%id%")
+```
+and then to render the HTML
+```php
+echo $widget->buildWidget()
+```
+
+#### Order Tracking (After checkout/Thank You page)
+Example usage with shop id `Faslet Demo`
+```php
+use Faslet\OrderTracking;
+
+$orderTracking = new OrderTracking("Faslet Demo");
+
+$orderTracking
+    ->withOrderNumber("order-123")
+    ->withPaymentStatus("paid");
+
+$orderTracking
+    ->addProduct("product-1", "variant-1-1", "Jacket", "Medium/Blue", 400, 2, "sku1")
+    ->addProduct("product-2", "variant-2-1", "T-Shirt", "Medium/Blue", 100, 1, "sku2");
+```
+
+and then to render the HTML
+```php
+echo $orderTracking->buildOrderTracking()
 ```
 
 ### Examples
