@@ -9,29 +9,29 @@ use PHPUnit\Framework\TestCase;
 
 final class OrderTrackingTest extends TestCase
 {
-  public function testSetsShopIdOnConstruction(): void
-  {
-    $testShopId = 'test shop id';
-    $orderTracking = new \Faslet\OrderTracking($testShopId);
-    $this->assertEquals($orderTracking->getShopId(), $testShopId);
-  }
+    public function testSetsShopIdOnConstruction(): void
+    {
+        $testShopId = 'test shop id';
+        $orderTracking = new \Faslet\OrderTracking($testShopId);
+        $this->assertEquals($orderTracking->getShopId(), $testShopId);
+    }
 
-  public function testReturnsAValidOrderTrackingTag(): void
-  {
-    $testShopId = 'test shop id';
-    $orderTracking = new \Faslet\OrderTracking($testShopId);
-    $orderTracking
-      ->withOrderNumber("order-123")
-      ->withPaymentStatus("paid");
+    public function testReturnsAValidOrderTrackingTag(): void
+    {
+        $testShopId = 'test shop id';
+        $orderTracking = new \Faslet\OrderTracking($testShopId);
+        $orderTracking
+            ->withOrderNumber("order-123")
+            ->withPaymentStatus("paid");
 
-    $orderTracking
-      ->addProduct("product-1", "variant-1-1", "Jacket", "Medium/Blue", 400, 2, "sku1")
-      ->addProduct("product-2", "variant-2-1", "T-Shirt", "Medium/Blue", 100, 1, "sku2");
+        $orderTracking
+            ->addProduct("product-1", "variant-1-1", "Jacket", "Medium/Blue", 400, 2, "sku1")
+            ->addProduct("product-2", "variant-2-1", "T-Shirt", "Medium/Blue", 100, 1, "sku2");
 
-    $orderTrackingSnippet = $orderTracking->buildOrderTracking();
+        $orderTrackingSnippet = $orderTracking->buildOrderTracking();
 
-    $this->assertXmlStringEqualsXmlString(
-      "<div id=\"faslet-ot-container\" class=\"faslet-ot-container\">
+        $this->assertXmlStringEqualsXmlString(
+            "<div id=\"faslet-ot-container\" class=\"faslet-ot-container\">
     <script src=\"https://widget.prod.faslet.net/faslet-orders.js\"></script>
     <script src=\"https://www.googletagmanager.com/gtag/js?id=G-6J8TML143D\" async=\"async\"></script>
     <script>
@@ -40,7 +40,46 @@ final class OrderTrackingTest extends TestCase
     window._faslet_orders.event(\"widget_order_track\", \"test shop id\", {\"sku\":\"sku2\",\"correlationId\":\"product-2\",\"title\":\"T-Shirt\",\"variant_id\":\"variant-2-1\",\"variant\":\"Medium\/Blue\",\"price\":100,\"quantity\":1,\"order\":\"order-123\",\"payment_status\":\"paid\"});
 </script>
 </div>",
-      $orderTrackingSnippet
-    );
-  }
+            $orderTrackingSnippet
+        );
+    }
+
+    public function testThrowsErrorWhenShopIdIsMissing(): void
+    {
+        $orderTracking = new \Faslet\OrderTracking('');
+
+        $orderTracking
+            ->withOrderNumber('order1')
+            ->withPaymentStatus('paid');
+
+        $orderTracking->addProduct('prod-1', 'var-1', 'Jacket', 'M', 200, 2, 'sku-1');
+
+        $this->expectException(MissingParameterException::class);
+        $orderTracking->buildOrderTracking();
+    }
+
+    public function testThrowsErrorWhenOrderNumberIsMissing(): void
+    {
+        $orderTracking = new \Faslet\OrderTracking('test shop id');
+
+        $orderTracking
+            ->withPaymentStatus('paid');
+
+        $orderTracking->addProduct('prod-1', 'var-1', 'Jacket', 'M', 200, 2, 'sku-1');
+
+        $this->expectException(MissingParameterException::class);
+        $orderTracking->buildOrderTracking();
+    }
+
+    public function testThrowsErrorWhenProductsAreEmpty(): void
+    {
+        $orderTracking = new \Faslet\OrderTracking('test shop id');
+
+        $orderTracking
+            ->withOrderNumber('order1')
+            ->withPaymentStatus('paid');
+
+        $this->expectException(MissingParameterException::class);
+        $orderTracking->buildOrderTracking();
+    }
 }
