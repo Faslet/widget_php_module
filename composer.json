@@ -1,25 +1,26 @@
 {
-    "name": "faslet/faslet",
-    "description": "The Faslet Size Me Up Widget",
-    "type": "library",
-    "license": "MIT",
-    "autoload": {
-        "psr-4": {
-            "Faslet\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Faslet\\Tests\\": "tests/"
-        }
-    },
-    "authors": [
-        {
-            "name": "Faslet Team",
-            "email": "technology@faslet.me"
-        }
-    ],
-    "require-dev": {
-        "phpunit/phpunit": "^9"
+  "name": "faslet/faslet",
+  "description": "The Faslet Size Me Up Widget",
+  "homepage": "https://github.com/Faslet/widget_php_module",
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Faslet\\": "src/"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Faslet\\Tests\\": "tests/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Faslet Team",
+      "email": "technology@faslet.me"
+    }
+  ],
+  "require-dev": {
+    "phpunit/phpunit": "^9"
+  }
 }
