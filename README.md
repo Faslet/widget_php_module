@@ -12,10 +12,10 @@ Example usage with shop id `Faslet Demo`
 ```php
 use Faslet\Widget;
 
+// GET THIS FROM YOUR FASLET REPRESENTITIVE
 $widget = new Widget("Faslet Demo");
 
 $widget
-    // GET THIS FROM YOUR FASLET REPRESENTITIVE
     ->withBrand("Faslet Demo")
     ->withProductId("id123")
     ->withProductImage("https://placekitten.com/100")
@@ -48,6 +48,7 @@ Example usage with shop id `Faslet Demo`
 ```php
 use Faslet\OrderTracking;
 
+// GET THIS FROM YOUR FASLET REPRESENTITIVE
 $orderTracking = new OrderTracking("Faslet Demo");
 
 $orderTracking
