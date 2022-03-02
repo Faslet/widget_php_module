@@ -15,10 +15,12 @@ use Faslet\Widget;
 $widget = new Widget("Faslet Demo");
 
 $widget
+    // GET THIS FROM YOUR FASLET REPRESENTITIVE
     ->withBrand("Faslet Demo")
     ->withProductId("id123")
     ->withProductImage("https://placekitten.com/100")
     ->withProductName("Jacket")
+    // GET THIS FROM YOUR FASLET REPRESENTITIVE
     ->withFasletProductTag("Faslet_Jacket_Male");
 
 $widget
