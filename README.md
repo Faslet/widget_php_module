@@ -3,7 +3,7 @@
 ### Usage
 To use this project in your own, pull down this plugin with 
 ```bash
-compooser require faslet/faslet
+composer require faslet/faslet
 ```
 
 #### Widget (Product page)
