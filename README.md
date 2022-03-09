@@ -36,11 +36,11 @@ $widget
     ->addVariant("var_5", "L", false, "sku_5", "red")
     ->addVariant("var_6", "L", false, "sku_6", "blue");
 
-$widget->withAddToCartRedirect("https://example.com/add-to-cart?variantId=%id%", "%id%")
+$widget->withAddToCartRedirect("https://example.com/add-to-cart?variantId=%id%", "%id%");
 ```
 and then to render the HTML
 ```php
-echo $widget->buildWidget()
+echo $widget->buildWidget();
 ```
 
 #### Order Tracking (After checkout/Thank You page)
@@ -62,7 +62,7 @@ $orderTracking
 
 and then to render the HTML
 ```php
-echo $orderTracking->buildOrderTracking()
+echo $orderTracking->buildOrderTracking();
 ```
 
 ### Examples
