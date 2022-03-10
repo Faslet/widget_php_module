@@ -7,7 +7,7 @@ use Faslet\Widget;
 $widget = new Widget("Faslet Demo");
 
 $widget
-    ->withBrand("Faslet Demo")
+    ->withBrand("Faslet Demo Brand")
     ->withProductId("id123")
     ->withProductImage("https://placekitten.com/100")
     ->withProductName("Jacket")
