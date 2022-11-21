@@ -48,10 +48,10 @@ final class WidgetTest extends TestCase
 
 
         $widget
-            ->addVariant("var_1", "S", true, "sku_1", "red")
-            ->addVariant("var_2", "S", true, "sku_2", "blue")
-            ->addVariant("var_3", "M", false, "sku_3", "red")
-            ->addVariant("var_4", "M", true, "sku_4", "blue");
+            ->addVariant("var_1", "S", true, "sku_1", "red", 43)
+            ->addVariant("var_2", "S", true, "sku_2", "blue", 37, "https://test.com")
+            ->addVariant("var_3", "M", false, "sku_3", "red", 43)
+            ->addVariant("var_4", "M", true, "sku_4", "blue", 43);
 
         $widgetSnippet = $widget
             ->buildWidget();
@@ -61,7 +61,7 @@ final class WidgetTest extends TestCase
 <script>
     window._faslet = window._faslet || {};
     window._faslet.id = \"product id\";
-    window._faslet.variants = [{\"size\":\"S\",\"id\":\"var_1\",\"sku\":\"sku_1\",\"available\":true,\"color\":\"red\"},{\"size\":\"S\",\"id\":\"var_2\",\"sku\":\"sku_2\",\"available\":true,\"color\":\"blue\"},{\"size\":\"M\",\"id\":\"var_3\",\"sku\":\"sku_3\",\"available\":false,\"color\":\"red\"},{\"size\":\"M\",\"id\":\"var_4\",\"sku\":\"sku_4\",\"available\":true,\"color\":\"blue\"}];
+    window._faslet.variants = [{\"size\":\"S\",\"id\":\"var_1\",\"sku\":\"sku_1\",\"available\":true,\"color\":\"red\",\"price\":43},{\"size\":\"S\",\"id\":\"var_2\",\"sku\":\"sku_2\",\"available\":true,\"color\":\"blue\",\"price\":37,\"imageUrl\":\"https:\/\/test.com\"},{\"size\":\"M\",\"id\":\"var_3\",\"sku\":\"sku_3\",\"available\":false,\"color\":\"red\",\"price\":43},{\"size\":\"M\",\"id\":\"var_4\",\"sku\":\"sku_4\",\"available\":true,\"color\":\"blue\",\"price\":43}];
     window._faslet.colors = [{\"id\":\"red\",\"name\":\"Magnificent Red\"},{\"id\":\"blue\",\"name\":\"Dashing Blue\"}];
     window._faslet.shopUrl = \"https://shop.com/\";
 </script>

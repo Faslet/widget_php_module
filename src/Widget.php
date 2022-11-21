@@ -117,9 +117,15 @@ final class Widget
         return $this;
     }
 
-    public function addVariant(string $variantId, string $sizeLabel, bool $inStock, string $sku, string $colorId)
+    public function addVariant(string $variantId, string $sizeLabel, bool $inStock, string $sku, string $colorId, int $price, ?string $imageUrl = null)
     {
-        $this->variants[] = array("size" => $sizeLabel, "id" => $variantId, "sku" => $sku, "available" => $inStock, "color" => $colorId);
+        $this->variants[] = array("size" => $sizeLabel, "id" => $variantId, "sku" => $sku, "available" => $inStock, "color" => $colorId, "price" => $price);
+        if($imageUrl != null) {
+            $currentIndex = count($this->variants) - 1;
+            $this->variants[$currentIndex]["imageUrl"] = $imageUrl;
+        }
+
+
         return $this;
     }
 

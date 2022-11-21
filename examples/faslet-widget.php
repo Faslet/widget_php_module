@@ -19,12 +19,12 @@ $widget
 
 
 $widget
-    ->addVariant("var_1", "S", true, "sku_1", "red")
-    ->addVariant("var_2", "S", true, "sku_2", "blue")
-    ->addVariant("var_3", "M", true, "sku_3", "red")
-    ->addVariant("var_4", "M", false, "sku_4", "blue")
-    ->addVariant("var_5", "L", false, "sku_5", "red")
-    ->addVariant("var_6", "L", false, "sku_6", "blue");
+    ->addVariant("var_1", "S", true, "sku_1", "red", 59.99, 'https://placekitten.com')
+    ->addVariant("var_2", "S", true, "sku_2", "blue", 59.99, 'https://placekitten.com')
+    ->addVariant("var_3", "M", true, "sku_3", "red", 49.99, 'https://placekitten.com')
+    ->addVariant("var_4", "M", false, "sku_4", "blue", 49.99, 'https://placekitten.com')
+    ->addVariant("var_5", "L", false, "sku_5", "red", 59.99, 'https://placekitten.com')
+    ->addVariant("var_6", "L", false, "sku_6", "blue", 59.99, 'https://placekitten.com');
 
 $widget->withAddToCartRedirect("https://example.com/add-to-cart?variantId=%id%", "%id%")
 
