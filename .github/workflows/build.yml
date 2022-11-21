@@ -20,3 +20,19 @@ jobs:
         run: composer install --no-interaction
       - name: Run Tests
         run: vendor/bin/phpunit --testdox tests
+      - name: Slack Message
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: dgoemans/slack-action@1.0.1
+        env:
+          SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
+        with:
+          title: ${{ github.workflow }}
+          title_link: "https://github.com/${{ github.repository }}"
+          channel: "releases"
+          text: |
+            Release *PHP Module* :tada:
+            Version: *<https://github.com/${{ github.repository }}/releases/tag/${{ github.event.release.tag_name }}|${{ github.event.release.tag_name }}>*
+            ${{ github.event.release.name }}
+
+            *Release notes:*
+            ${{ github.event.release.body }}
