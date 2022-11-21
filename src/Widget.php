@@ -117,7 +117,7 @@ final class Widget
         return $this;
     }
 
-    public function addVariant(string $variantId, string $sizeLabel, bool $inStock, string $sku, string $colorId, int $price, ?string $imageUrl = null)
+    public function addVariant(string $variantId, string $sizeLabel, bool $inStock, string $sku, string $colorId, float $price, ?string $imageUrl = null)
     {
         $this->variants[] = array("size" => $sizeLabel, "id" => $variantId, "sku" => $sku, "available" => $inStock, "color" => $colorId, "price" => $price);
         if($imageUrl != null) {
